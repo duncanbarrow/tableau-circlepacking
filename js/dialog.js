@@ -30,6 +30,7 @@
         $("#sheetList").on('change','', function() {
             var wsheetName = $("#sheetList").val();
             fieldListUpdate(wsheetName);
+            $("[id^=levelRow]").remove();
         });
 
         // reset colours on colour range change
@@ -72,10 +73,13 @@
             // loop over each column
             worksheetColumns.forEach(function (current_value) {
                 // value field list
-                if (valueField != undefined && current_value.fieldName == valueField) {
-                    $("#valueField").append("<option value='" + current_value.fieldName + "' selected='true'>" + current_value.fieldName + "</option>");
-                } else {
-                    $("#valueField").append("<option value='" + current_value.fieldName + "'>" + current_value.fieldName + "</option>");
+                // only allow numeric data types
+                if (current_value.dataType == "int" || current_value.dataType == "float") {
+                    if (valueField != undefined && current_value.fieldName == valueField) {
+                        $("#valueField").append("<option value='" + current_value.fieldName + "' selected='true'>" + current_value.fieldName + "</option>");
+                    } else {
+                        $("#valueField").append("<option value='" + current_value.fieldName + "'>" + current_value.fieldName + "</option>");
+                    }
                 }
 
                 // level field list

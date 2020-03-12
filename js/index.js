@@ -17,10 +17,7 @@
                 renderCirclePacking();
             });
 
-            unregisterParameterEventListener = tableau.extensions.settings.addEventListener(tableau.TableauEventType.ParameterChanged, (parameterEvent) => {
-                renderCirclePacking();
-            })
-
+            
         }, function() {console.log('Error while initializing: ' + err.toString());});
     });
 
@@ -36,6 +33,9 @@
         }
         if (unregisterMarkSelectionListener != null) {
             unregisterMarkSelectionListener();
+        }
+        if (unregisterParameterEventListener != null) {
+            unregisterParameterEventListener();
         }
 
         // try to get worksheet from settings, if it doesn't exist will show message saying to configure
@@ -61,6 +61,9 @@
             renderCirclePacking();
         });
         unregisterMarkSelectionListener = worksheet.addEventListener(tableau.TableauEventType.MarkSelectionChanged, (markSelectionEvent) => {
+            renderCirclePacking();
+        });
+        unregisterParameterEventListener = worksheet.addEventListener(tableau.TableauEventType.ParameterChanged, (parameterEvent) => {
             renderCirclePacking();
         });
 
