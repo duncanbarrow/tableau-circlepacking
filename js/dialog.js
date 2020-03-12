@@ -23,14 +23,14 @@
         });
 
         if (worksheetName != undefined) {
-            fieldListUpdate(worksheetName);
+            fieldListUpdate(worksheetName, false);
         }
         
         // reset field lists on worksheet change
         $("#sheetList").on('change','', function() {
             var wsheetName = $("#sheetList").val();
-            fieldListUpdate(wsheetName);
-            $("[id^=levelRow]").remove();
+            $("tr[id^=levelRow]").remove();
+            fieldListUpdate(wsheetName, true);
         });
 
         // reset colours on colour range change
@@ -47,7 +47,7 @@
         $('#saveButton').click(saveButton);
     }
 
-    function fieldListUpdate(worksheetName) {
+    function fieldListUpdate(worksheetName, reset) {
         // populate field names and select chose values if they exist
         var valueField = tableau.extensions.settings.get("valueField");
         var levelFields = tableau.extensions.settings.get("levelFields");
@@ -75,7 +75,7 @@
                 // value field list
                 // only allow numeric data types
                 if (current_value.dataType == "int" || current_value.dataType == "float") {
-                    if (valueField != undefined && current_value.fieldName == valueField) {
+                    if (valueField != undefined && current_value.fieldName == valueField && !reset) {
                         $("#valueField").append("<option value='" + current_value.fieldName + "' selected='true'>" + current_value.fieldName + "</option>");
                     } else {
                         $("#valueField").append("<option value='" + current_value.fieldName + "'>" + current_value.fieldName + "</option>");
@@ -87,7 +87,7 @@
             });
 
             // add already defined levels
-            if (levelFields != undefined) {
+            if (levelFields != undefined && !reset) {
                 // split level fields into array
                 var levelFieldArr = [];
                 levelFieldArr = levelFields.split("|");

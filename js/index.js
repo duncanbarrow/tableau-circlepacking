@@ -35,7 +35,7 @@
             unregisterMarkSelectionListener();
         }
         if (unregisterParameterEventListener != []) {
-            unregisterParameterEventListener();
+            unregisterParameterEventListener = [];
         }
 
         // try to get worksheet from settings, if it doesn't exist will show message saying to configure
