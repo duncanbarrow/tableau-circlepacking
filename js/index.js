@@ -5,7 +5,7 @@
     let unregisterSettingsEventListener = null;
     let unregisterFilterEventListener = null;
     let unregisterMarkSelectionListener = null;
-    let unregisterParameterEventListener = null;
+    let unregisterParameterEventListener = [];
 
     $(document).ready(function() {
         // add config option to call the config function
@@ -34,7 +34,7 @@
         if (unregisterMarkSelectionListener != null) {
             unregisterMarkSelectionListener();
         }
-        if (unregisterParameterEventListener != null) {
+        if (unregisterParameterEventListener != []) {
             unregisterParameterEventListener();
         }
 
@@ -64,11 +64,9 @@
             renderCirclePacking();
         });
 
-        unregisterParameterEventListener = [];
-
         tableau.extensions.dashboardContent.dashboard.getParametersAsync().then(function(parameters) {
             parameters.forEach(function(p) {
-                var unregParamEventListener = p.addEventListener(tableau.TableauEventType.ParameterChanged, (parameterEvent) => {
+                var unregParamEventListener = p.addEventListener(tableau.TableauEventType.ParameterChanged,function(parameterEvent) {
                     renderCirclePacking();
                 });
                 unregisterParameterEventListener.push(unregParamEventListener);
