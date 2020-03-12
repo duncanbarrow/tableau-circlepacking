@@ -16,6 +16,11 @@
             unregisterSettingsEventListener = tableau.extensions.settings.addEventListener(tableau.TableauEventType.SettingsChanged, (settingsEvent) => {
                 renderCirclePacking();
             });
+
+            unregisterParameterEventListener = tableau.extensions.settings.addEventListener(tableau.TableauEventType.ParameterChanged, (parameterEvent) => {
+                renderCirclePacking();
+            })
+
         }, function() {console.log('Error while initializing: ' + err.toString());});
     });
 
