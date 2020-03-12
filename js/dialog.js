@@ -96,7 +96,7 @@
                 for (var i = 0; i < levelFieldArr.length; i++) {
                     $("#addLevelRow").before("<tr id='levelRow" + (i + 1).toString() + "'>\
                         <td>Level " + (i + 1).toString() + "</td>\
-                        <td id='levelRowField" + (i + 1).toString() + "'>" + levelFieldArr[i] + "</td>\
+                        <td colspan='2' id='levelRowField" + (i + 1).toString() + "'>" + levelFieldArr[i] + "</td>\
                         <td><input type='color' id='levelRowColour" + (i + 1).toString() + "'></td>\
                         <td><button type='button' onclick='levelDelete(this);' class='btn btn-default'><span class='glyphicon glyphicon-remove' /></button></td>\
                         </tr>");
@@ -138,6 +138,12 @@
             }
             if (edColour != undefined) {
                 $("#endLevelColourPicker").val(edColour);
+            }
+
+            // get show legend and set checkbox
+            var showLegend = tableau.extensions.settings.get("showLegend");
+            if (showLegend != undefined && showLegend == "true") {
+                $("#showLegend").prop("checked", true);
             }
 
         });
@@ -269,6 +275,9 @@
 
         // text colour
         tableau.extensions.settings.set("textColour", $("#textColourPicker").val());
+
+        // show legend
+        tableau.extensions.settings.set("showLegend", $("#showLegend").is(":checked").toString());
 
         // call saveAsync to save settings before calling closeDialog
         tableau.extensions.settings.saveAsync().then((currentSettings) => {

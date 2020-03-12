@@ -82,6 +82,7 @@
         var ttColour = tableau.extensions.settings.get("tooltipColour");
         var txtSize = tableau.extensions.settings.get("textSize");
         var txtColour = tableau.extensions.settings.get("textColour");
+        var showLegend = tableau.extensions.settings.get("showLegend");
 
         // check value and level fields are defined as well as colours
         if (valueField != undefined && levelFields != undefined && bgColour != undefined && levelColours != undefined) {
@@ -115,7 +116,7 @@
                     data.push(row);
                 });
 
-                //root = d3.hierarchy(d3.rollups(data, v => d3.sum(v, d => d.value)
+                
 
                 var nData = d3.nest();
                 levelFieldArr.forEach(function(lField) {
@@ -151,6 +152,8 @@
                 function redraw() {
                     svg.text("");
 
+                    d3.select("div.legend").remove();
+                    
                     var hData = d3.hierarchy(jData)
                         .sum(d => d.value)
                         .sort((a, b) => b.value - a.value);
@@ -173,6 +176,8 @@
                     // get colours
                     var levelColourArr = [];
                     levelColourArr = levelColours.split("|");
+
+                    
 
 
                     let focus = root;
@@ -248,8 +253,35 @@
                             return dName + "<tspan x='0' dy='1.2em'>" + dValue + "</tspan>";
                         });
 
-                    
+                    if (showLegend != undefined && showLegend == "true") {
+                        // setup legend div
+                        var legendDiv = d3.select("body").append("div")
+                        .attr("class","legend")
+                        .style("opacity",.9)
+                        .append("svg")
+                        .append("g");
 
+                        const legendDots = legendDiv.selectAll("legendDots")
+                            .data(levelFieldArr)
+                            .enter()
+                            .append("circle")
+                                .attr("cx",30)
+                                .attr("cy", function(d,i) {return 30 + i*25;})
+                                .attr("r",7)
+                                .style("fill", function(d,i) {return levelColourArr[i];})
+
+                        const legendText = legendDiv.selectAll("legendText")
+                            .data(levelFieldArr)
+                            .enter()
+                            .append("text")
+                                .attr("x", 50)
+                                .attr("y", function(d,i) {return 30 + i*25;})
+                                .style("fill", txtColour)
+                                .text(function(d) {return d;})
+                                .attr("text-anchor", "left")
+                                .style("alignment-baseline", "middle");
+                    }
+                    
                     
                     zoomTo([root.x, root.y, root.r * 2]);
 
