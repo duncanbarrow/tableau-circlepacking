@@ -90,7 +90,7 @@
                     var row = {};
                     levelFieldIdxArr.forEach(function(i) {
                         var colName = sumdata.columns[i].fieldName;
-                        var colVal = dataRow[i].value;
+                        var colVal = dataRow[i].formattedValue;
                         row[colName] = colVal;
                     });
 
