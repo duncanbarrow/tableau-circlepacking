@@ -63,9 +63,18 @@
         unregisterMarkSelectionListener = worksheet.addEventListener(tableau.TableauEventType.MarkSelectionChanged, (markSelectionEvent) => {
             renderCirclePacking();
         });
-        unregisterParameterEventListener = worksheet.addEventListener(tableau.TableauEventType.ParameterChanged, (parameterEvent) => {
-            renderCirclePacking();
+
+        unregisterParameterEventListener = [];
+
+        tableau.extensions.dashboardContent.dashboard.getParametersAsync().then(function(parameters) {
+            parameters.forEach(function(p) {
+                var unregParamEventListener = p.addEventListener(tableau.TableauEventType.ParameterChanged, (parameterEvent) => {
+                    renderCirclePacking();
+                });
+                unregisterParameterEventListener.push(unregParamEventListener);
+            });
         });
+
 
         // get settings
         var valueField = tableau.extensions.settings.get("valueField");
