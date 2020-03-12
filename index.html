@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-array.v2.min.js"></script>
+        
+
+        <style>
+            #circlePack {
+                position: fixed;
+                left: 0px;
+                right: 0px;
+                top: 0px;
+                bottom: 0px;
+            }
+
+            div.tooltip {	
+                position: absolute;			
+                text-align: center;
+                padding: 12px;				
+                font: 12px sans-serif;	
+                border: 0px;		
+                border-radius: 8px;			
+                pointer-events: none;			
+            }
+        </style>
+    </head>
+
+    <body style="overflow: hidden;">
+        <span id="error"></span>
+        <div id="configure" hide>
+            <h3>Please Configure the Circle Packing Extension</h3>
+        </div>
+        <div id="circlePack" ></div>        
+    </body>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/tableau.extensions.1.latest.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</html>

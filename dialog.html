@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-array.v2.min.js"></script>
+        <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div id="settings">
+                <h4>Circle Packing Settings</h4>
+
+                <div class="table-responsive">
+                    <table id="hierarchyTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Setting Name</th>
+                                <th scope="col" colspan="4">Setting Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="30%">Source Worksheet</td>
+                                <td colspan="4">
+                                    <select id="sheetList">
+                                        <option selected="true" disabled="true">-- Select the source worksheet --</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Value Field</td>
+                                <td colspan="4">
+                                    <select id="valueField" disabled="true">
+                                        <option id="default" selected="true" disabled="true">-- Select the value field --</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr id="bgColour">
+                                <td>Background Colours</td>
+                                <td width="10%"><label>Main:</label></td>
+                                <td><input type="color" id="bgColourPicker" value="#ffffff"></td>
+                                <td width="10%"><label>Tooltip:</label></td>
+                                <td><input type="color" id="ttbgColourPicker" value="#ffffff"></td>
+                            </tr>
+                            <tr id="textFormat">
+                                <td>Label Format</td>
+                                <td><label>Size:</label></td>
+                                <td>
+                                    <select id="textSize">
+                                        <option id="textSizeXL" value="h1">XX-Large</option>
+                                        <option id="textSizeXL" value="h2" selected="true">X-Large</option>
+                                        <option id="textSizeL" value="h3">Large</option>
+                                        <option id="textSizeM" value="h4">Medium</option>
+                                        <option id="textSizeS" value="h5">Small</option>
+                                        <option id="textSizeXS" value="h6">X-Small</option>
+                                    </select>
+                                </td>
+                                <td><label>Colour:</label></td>
+                                <td><input type="color" id="textColourPicker" value="#000000"></td>
+                            </tr>
+                            <tr id="levelColour">
+                                <td>Level Colour Range</td>
+                                <td><label>From:</label></td>
+                                <td><input type="color" id="startLevelColourPicker" value="#ffffff"></td>
+                                <td><label>To:</label></td>
+                                <td><input type="color" id="endLevelColourPicker" value="#000000"></td>
+                            </tr>
+                            <tr id="addLevelRow">
+                                <td>Add New Level</td>
+                                <td colspan="3">
+                                    <select id="levelField" disabled="true">
+                                        <option id="default" selected="true" disabled="true">-- Select the next level field --</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button disabled="true" type="button" id="addLevelButton" class="btn btn-primary">Add</button>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="settingButtons">
+                <button id="saveButton" type="button" class="btn btn-primary">Save</button>
+                <button id="cancelButton" type="button" class="btn btn-primary">Cancel</button>
+            </div>
+        </div>
+    </body>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/tableau.extensions.1.latest.min.js"></script>
+    <script type="text/javascript" src="js/dialog.js"></script>
+    <script type="text/javascript">function levelDelete(ctl) {
+        $(ctl).parents("tr").remove();
+    }</script>
+</html>
